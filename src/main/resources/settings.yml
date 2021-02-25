@@ -1,0 +1,38 @@
+#
+# 选项
+#
+Options:
+  # 语言配置
+  Language: zh_CN
+
+#
+# 快捷键
+#
+Shortcut:
+  # 缓存路程的上限
+  # 决定组合最多能使用的数量
+  Max-Cache-Track: 5
+
+#
+# 注册快捷方式
+#
+# - SNEAKING (Shift)
+# - OFFHAND (F)
+# - SWAP (1-9)
+# - JUMP (SPACE)
+# - INTERACT (Left/Right + Air/Block)
+#
+Register:
+  # 自定义快捷方式 ID
+  helloWorld:
+    courses:
+      - Sneaking
+      - Offhand;1000
+    reaction: |-
+      tell inline *"Hello World {{player name}}"
+  shift_1:
+    courses:
+      - Sneaking
+      - Swap-1;1000
+    reaction:
+      - 'title *SHIFT_1 by 20 10 20'
