@@ -1,3 +1,1 @@
 # Brevis
-
-Advanced shortcuts

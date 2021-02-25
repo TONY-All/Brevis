@@ -2,8 +2,6 @@
 # 选项
 #
 Options:
-  # 密匙
-  Key: NULL
   # 语言配置
   Language: zh_CN
 
