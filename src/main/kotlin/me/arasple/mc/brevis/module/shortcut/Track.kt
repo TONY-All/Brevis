@@ -12,7 +12,6 @@ class Track(
 ) {
 
     override fun equals(other: Any?): Boolean {
-
         return other is Track && other.type == type && other.value == value && kotlin.run {
             span < 0 || System.currentTimeMillis() - other.index < span
         }
