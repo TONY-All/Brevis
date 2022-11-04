@@ -1,8 +1,11 @@
 package me.arasple.mc.brevis.api
 
-import io.izzel.taboolib.module.inject.TFunction
-import me.arasple.mc.brevis.Brevis
-import org.bstats.bukkit.Metrics
+import taboolib.common.LifeCycle
+import taboolib.common.platform.Awake
+import taboolib.common.platform.Platform
+import taboolib.platform.BukkitPlugin
+import taboolib.module.metrics.Metrics
+import taboolib.module.metrics.charts.SingleLineChart
 
 /**
  * @author Arasple
@@ -10,12 +13,18 @@ import org.bstats.bukkit.Metrics
  */
 object Metrics {
 
-    private val metrics: Metrics by lazy { Metrics(Brevis.plugin, 10469) }
+    private val metrics: Metrics by lazy {
+        Metrics(
+            10469,
+            BukkitPlugin.getInstance().description.version,
+            Platform.BUKKIT
+        )
+    }
 
-    @TFunction.Init
+    @Awake(LifeCycle.ACTIVE)
     fun initialization() {
         metrics.run {
-            addCustomChart(Metrics.SingleLineChart("shortcuts") {
+            addCustomChart(SingleLineChart("shortcuts") {
                 Settings.INSTANCE.shortcuts.size
             })
         }

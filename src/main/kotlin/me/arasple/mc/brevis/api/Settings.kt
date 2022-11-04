@@ -1,12 +1,13 @@
 package me.arasple.mc.brevis.api
 
-import io.izzel.taboolib.module.config.TConfig
-import io.izzel.taboolib.module.inject.TInject
-import io.izzel.taboolib.module.locale.TLocale
-import io.izzel.taboolib.util.Coerce
 import me.arasple.mc.brevis.module.shortcut.Shortcut
 import me.arasple.mc.brevis.module.shortcut.Track
 import me.arasple.mc.brevis.module.shortcut.TrackType
+import taboolib.common.platform.function.console
+import taboolib.common5.Coerce
+import taboolib.module.configuration.Config
+import taboolib.module.configuration.Configuration
+import taboolib.module.lang.sendLang
 
 /**
  * @author Arasple
@@ -46,21 +47,20 @@ class Settings {
                 return@mapNotNull null
             }
         }.also {
-            TLocale.sendToConsole("Shortcut.Loaded", it.size, Coerce.format((System.nanoTime() - start).div(1000000.0)))
+            console().sendLang("Shortcut-Loaded", it.size, Coerce.format((System.nanoTime() - start).div(1000000.0)))
         }
     }
 
 
     companion object {
 
-        @TInject("settings.yml", locale = "Options.Language", migrate = true)
-        private lateinit var CONF: TConfig
+        @Config("settings.yml", migrate = true, autoReload = true)
+        private lateinit var CONF: Configuration
 
         internal var INSTANCE = Settings()
 
         fun init() {
-            CONF.listener { onReload() }.also { onReload() }
-
+            CONF.onReload { onReload() }.also { onReload() }
         }
 
         fun onReload() {

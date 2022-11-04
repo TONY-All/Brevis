@@ -4,7 +4,8 @@ package me.arasple.mc.brevis.module.shortcut
  * @author Arasple
  * @date 2021/2/25 11:39
  */
-inline class TrackType(val index: Int) {
+@JvmInline
+value class TrackType(val index: Int) {
 
     companion object {
 
@@ -18,13 +19,16 @@ inline class TrackType(val index: Int) {
 
         val INTERACT = TrackType(4)
 
+        val DROP = TrackType(5)
+
         fun of(name: String): TrackType? {
-            return when (name.toUpperCase()) {
-                "SNEAK", "SNEAKING" -> SNEAKING
+            return when (name.uppercase()) {
+                "SNEAK", "SNEAKING", "SHIFT" -> SNEAKING
                 "OFFHAND", "F" -> OFFHAND
                 "SWAP" -> SWAP
-                "JUMP" -> JUMP
+                "JUMP", "SPACE" -> JUMP
                 "INTERACT" -> INTERACT
+                "DROP", "THROW", "Q" -> DROP
                 else -> null
             }
         }

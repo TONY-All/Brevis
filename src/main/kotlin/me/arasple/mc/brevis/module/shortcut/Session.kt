@@ -1,7 +1,6 @@
 package me.arasple.mc.brevis.module.shortcut
 
 import me.arasple.mc.brevis.api.Settings
-import me.arasple.mc.brevis.util.Performance
 import org.bukkit.entity.Player
 
 /**
@@ -33,20 +32,18 @@ class Session(private val holder: Player, private val tracks: MutableList<Track>
 
     private fun check(): Boolean {
         var matched = false
-        Performance.check("Brevis:Handler:Check") {
-            Settings.INSTANCE.shortcuts
-                .filter { it.match(tracks.takeLast(it.courses.size)) }
-                .run {
-                    if (isNotEmpty()) {
-                        matched = true
-                        tracks.clear()
-                        forEach { track ->
-                            // TODO INTERRUPT
-                            track.react(holder)
-                        }
+        Settings.INSTANCE.shortcuts
+            .filter { it.match(tracks.takeLast(it.courses.size)) }
+            .run {
+                if (isNotEmpty()) {
+                    matched = true
+                    tracks.clear()
+                    forEach { track ->
+                        // TODO INTERRUPT
+                        track.react(holder)
                     }
                 }
-        }
+            }
         return matched
     }
 
